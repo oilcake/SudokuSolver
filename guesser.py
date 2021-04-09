@@ -1,10 +1,15 @@
 class Guesser:
+
+    def __init__(self, zeros, sudoku):
+        self.sudoku_matrix = sudoku
+        self.zeros = zeros
+
     def guess(self):
         oh_yeah = 0
         if self.not_solved(self.sudoku_matrix):
-            zeros = self.__find_sets(self.sudoku_matrix)
+            self.zeros = self.__find_sets(self.sudoku_matrix)
             self.__sudoku_backup()
-            for zero in zeros:
+            for zero in self.zeros:
                 if not self.not_solved(self.sudoku_matrix):
                     break
                 keep = copy.deepcopy(zero)

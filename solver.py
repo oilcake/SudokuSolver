@@ -8,10 +8,10 @@ class Solver:
 
     sudoku_matrix = None
     sudoku_backup = None
+    fake_matrix = None
 
     def __init__(self, sudoku_matrix):
         self.sudoku_matrix = sudoku_matrix
-        # self.sudoku_backup = None
 
     def solve(self):
         self.successful_scan(self.sudoku_matrix)
@@ -30,8 +30,8 @@ class Solver:
             after = self.not_solved(sudoku)
         return success
 
-    def guess_failed(self):
-        zeros = self.__find_sets(self.sudoku_matrix)
+    def guess_failed(self, sudoku):
+        zeros = self.__find_sets(sudoku)
         for zero in zeros:
             if len(list(zero['candidates'])) < 1:
                 return True
@@ -44,6 +44,12 @@ class Solver:
         self.sudoku_matrix = copy.deepcopy(self.sudoku_backup)
 
     def guess(self):
+        guesser = Guesser()
+        self.fake_matrix = guesser.guess()
+        scanner.scan(self.fake_matrix)
+
+
+
         # oh_yeah = 0
         # if self.not_solved(self.sudoku_matrix):
         #     zeros = self.__find_sets(self.sudoku_matrix)
@@ -80,16 +86,6 @@ class Solver:
         excluder = Excluder()
         zeros = self.__find_sets(sudoku)
         excluder.exclude(zeros, sudoku)
-        # for options in zeros:
-        #     x = options["x"]
-        #     y = options["y"]
-        #     keep_value = options['candidates']
-        #     self.reduce_candidates(x, y)
-        #     if len(options["candidates"]) == 1:
-        #         self.sudoku_matrix[y][x], = options["candidates"]
-        #     elif len(options["candidates"]) == 0:
-        #         options['candidates'] = keep_value
-        #         break
 
     #  Example:
     # {
