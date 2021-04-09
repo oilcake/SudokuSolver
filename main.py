@@ -14,7 +14,7 @@ with open(FILE) as csvfile:
 
     for sudoku in sudokus:
         # count += 1
-        # if count < 39030:
+        # if count < 39020:
         #     continue
 
         # returns a dict with 'quizzes' and 'solutions'
@@ -40,7 +40,7 @@ with open(FILE) as csvfile:
             solved_count += 1
         else:
             unsolved_count += 1
-            break
+            # break
 
         print(solved_count, unsolved_count)
         # input('Next?')
