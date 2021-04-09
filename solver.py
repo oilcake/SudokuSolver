@@ -1,5 +1,6 @@
 from zero_seeker import *
-from scaner import *
+from excluder import *
+from guesser import *
 import copy
 
 
@@ -13,20 +14,20 @@ class Solver:
         # self.sudoku_backup = None
 
     def solve(self):
-        self.successful_scan()
-        if self.not_solved():
+        self.successful_scan(self.sudoku_matrix)
+        if self.not_solved(self.sudoku_matrix):
             self.guess()
         return self.sudoku_matrix
 
-    def successful_scan(self):
-        before = self.not_solved()
+    def successful_scan(self, sudoku):
+        before = self.not_solved(sudoku)
         after = 0
         success = 0
         while self.__successful(before, after):
             success += 1
-            before = self.not_solved()
-            self.scan()
-            after = self.not_solved()
+            before = self.not_solved(sudoku)
+            self.scan(sudoku)
+            after = self.not_solved(sudoku)
         return success
 
     def guess_failed(self):
@@ -43,51 +44,52 @@ class Solver:
         self.sudoku_matrix = copy.deepcopy(self.sudoku_backup)
 
     def guess(self):
-        if self.not_solved():
-            zeros = self.__find_sets(self.sudoku_matrix)
-            self.__sudoku_backup()
-            for zero in zeros:
-                if not self.not_solved():
-                    break
-                keep = copy.deepcopy(zero)
-                x = keep['x']
-                y = keep['y']
-                for candidate in keep['candidates']:
-                    oh_yeah = 0
-                    self.sudoku_matrix[y][x] = candidate
-                    if self.successful_scan() and not self.guess_failed():
-                        self.__sudoku_backup()
-                        oh_yeah += 1
-                        break
-                    elif self.guess_failed():
-                        self.__sudoku_restore()
-                if not oh_yeah:
-                    continue
-                #     oh_yeah = 0
-                break
-            self.guess()
+        # oh_yeah = 0
+        # if self.not_solved(self.sudoku_matrix):
+        #     zeros = self.__find_sets(self.sudoku_matrix)
+        #     self.__sudoku_backup()
+        #     for zero in zeros:
+        #         if not self.not_solved(self.sudoku_matrix):
+        #             break
+        #         keep = copy.deepcopy(zero)
+        #         x = keep['x']
+        #         y = keep['y']
+        #         for candidate in keep['candidates']:
+        #             oh_yeah = 0
+        #             self.sudoku_matrix[y][x] = candidate
+        #             if self.successful_scan(self.sudoku_matrix) and not self.guess_failed():
+        #                 self.__sudoku_backup()
+        #                 oh_yeah += 1
+        #                 break
+        #             elif self.guess_failed():
+        #                 self.__sudoku_restore()
+        #         if not oh_yeah:
+        #             continue
+        #         #     oh_yeah = 0
+        #         break
+        #     self.guess()
 
-    def not_solved(self):
-        return len(list(self.__find_sets(self.sudoku_matrix)))
+    def not_solved(self, sudoku):
+        return len(list(self.__find_sets(sudoku)))
 
     @staticmethod
     def __successful(before, after):
         return before - after
 
-    def scan(self):
-        scaner = Scaner()
-        zeros = self.__find_sets(self.sudoku_matrix)
-        scaner.scan(zeros)
-        for options in zeros:
-            x = options["x"]
-            y = options["y"]
-            keep_value = options['candidates']
-            self.reduce_candidates(x, y)
-            if len(options["candidates"]) == 1:
-                self.sudoku_matrix[y][x], = options["candidates"]
-            elif len(options["candidates"]) == 0:
-                options['candidates'] = keep_value
-                break
+    def scan(self, sudoku):
+        excluder = Excluder()
+        zeros = self.__find_sets(sudoku)
+        excluder.exclude(zeros, sudoku)
+        # for options in zeros:
+        #     x = options["x"]
+        #     y = options["y"]
+        #     keep_value = options['candidates']
+        #     self.reduce_candidates(x, y)
+        #     if len(options["candidates"]) == 1:
+        #         self.sudoku_matrix[y][x], = options["candidates"]
+        #     elif len(options["candidates"]) == 0:
+        #         options['candidates'] = keep_value
+        #         break
 
     #  Example:
     # {

@@ -13,9 +13,9 @@ with open(FILE) as csvfile:
     count = 0
 
     for sudoku in sudokus:
-        # count += 1
-        # if count < 39020:
-        #     continue
+        count += 1
+        if count < 39020:
+            continue
 
         # returns a dict with 'quizzes' and 'solutions'
         task = Matrix(sudoku['quizzes'])

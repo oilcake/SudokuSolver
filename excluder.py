@@ -1,5 +1,9 @@
 class Excluder:
-    def scan(self, zeros, sudoku):
+
+    sudoku_matrix = []
+
+    def exclude(self, zeros, sudoku):
+        self.sudoku_matrix = sudoku
         for options in zeros:
             x = options["x"]
             y = options["y"]
