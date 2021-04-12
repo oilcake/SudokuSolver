@@ -8,7 +8,8 @@ class Solver:
 
     sudoku_matrix = None
     sudoku_backup = None
-    fake_matrix = None
+    # fake_matrix = None
+    excluder = Excluder()
 
     def __init__(self, sudoku_matrix):
         self.sudoku_matrix = sudoku_matrix
@@ -44,9 +45,30 @@ class Solver:
         self.sudoku_matrix = copy.deepcopy(self.sudoku_backup)
 
     def guess(self):
-        guesser = Guesser()
-        self.fake_matrix = guesser.guess()
-        scanner.scan(self.fake_matrix)
+        self.__sudoku_backup()
+        while self.not_solved(self.sudoku_matrix):
+            self.fake_make()
+
+    def fake_make(self):
+        sudoku_copy = copy.deepcopy(self.sudoku_matrix)
+        guesser = Guesser(self.__find_sets(sudoku_copy), sudoku_copy)
+        fake_collection = guesser.guess()
+        for fake in fake_collection:
+            fake_matrix = fake['matrix']
+            x = fake['x']
+            y = fake['y']
+            candidate = fake['candidate']
+            if self.successful_scan(fake_matrix) and not self.guess_failed(fake_matrix):
+                # print(self.successful_scan(fake_matrix))
+                # print(self.guess_failed(fake_matrix))
+                print('YAAAAHHHAAAAA')
+                self.sudoku_matrix[y][x] = candidate
+                # self.__sudoku_backup()
+                # self.guess()
+            elif self.guess_failed(fake_matrix):
+                print('YOOOHHHOOOOOO')
+                # self.sudoku_matrix[y][x].discard(candidate)
+
 
 
 
@@ -83,9 +105,8 @@ class Solver:
         return before - after
 
     def scan(self, sudoku):
-        excluder = Excluder()
         zeros = self.__find_sets(sudoku)
-        excluder.exclude(zeros, sudoku)
+        self.excluder.exclude(zeros, sudoku)
 
     #  Example:
     # {
