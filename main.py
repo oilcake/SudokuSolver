@@ -14,8 +14,8 @@ with open(FILE) as csvfile:
 
     for sudoku in sudokus:
         count += 1
-        if count < 39030:
-            continue
+        # if count < 39030:
+        #     continue
 
         # returns a dict with 'quizzes' and 'solutions'
         task = Matrix(sudoku['quizzes'])
@@ -28,10 +28,10 @@ with open(FILE) as csvfile:
         answer = solver.solve()
         task.matrix = answer
 
-        task.show()
-        print()
-        solution.show()
-        print()
+        # task.show()
+        # print()
+        # solution.show()
+        # print()
         checker = Checker(task.matrix, solution.matrix)
 
         # print(checker.solved())
@@ -43,4 +43,4 @@ with open(FILE) as csvfile:
             # break
 
         print(solved_count, unsolved_count)
-        input('Next?')
+        # input('Next?')

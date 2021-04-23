@@ -16,8 +16,9 @@ class Solver:
 
     def solve(self):
         self.successful_scan(self.sudoku_matrix)
-        if self.not_solved(self.sudoku_matrix):
+        while self.not_solved(self.sudoku_matrix):
             self.guess()
+            self.successful_scan(self.sudoku_matrix)
         return self.sudoku_matrix
 
     def successful_scan(self, sudoku):
@@ -46,11 +47,11 @@ class Solver:
 
     def guess(self):
         self.__sudoku_backup()
-        while self.not_solved(self.sudoku_matrix):
-            self.fake_make()
+        # while self.not_solved(self.sudoku_matrix):
+        self.fake_make(self.sudoku_matrix)
 
-    def fake_make(self):
-        sudoku_copy = copy.deepcopy(self.sudoku_matrix)
+    def fake_make(self, sudoku):
+        sudoku_copy = copy.deepcopy(sudoku)
         guesser = Guesser(self.__find_sets(sudoku_copy), sudoku_copy)
         fake_collection = guesser.guess()
         for fake in fake_collection:
@@ -58,44 +59,24 @@ class Solver:
             x = fake['x']
             y = fake['y']
             candidate = fake['candidate']
-            if self.successful_scan(fake_matrix) and not self.guess_failed(fake_matrix):
+            self.successful_scan(fake_matrix)
+            if self.guess_failed(fake_matrix):
+                self.sudoku_matrix[y][x].discard(candidate)
+                self.__sudoku_backup()
+                # continue
+            # elif not self.not_solved(fake_matrix):
+            #     self.sudoku_matrix = copy.deepcopy(fake_matrix)
+            #     self.__sudoku_backup()
+                # break
+            # else:
                 # print(self.successful_scan(fake_matrix))
                 # print(self.guess_failed(fake_matrix))
-                print('YAAAAHHHAAAAA')
-                self.sudoku_matrix[y][x] = candidate
+                # print('YAAAAHHHAAAAA')
+                # self.sudoku_matrix[y][x] = candidate
+                # self.fake_make(sudoku_copy)
                 # self.__sudoku_backup()
                 # self.guess()
-            elif self.guess_failed(fake_matrix):
-                print('YOOOHHHOOOOOO')
                 # self.sudoku_matrix[y][x].discard(candidate)
-
-
-
-
-        # oh_yeah = 0
-        # if self.not_solved(self.sudoku_matrix):
-        #     zeros = self.__find_sets(self.sudoku_matrix)
-        #     self.__sudoku_backup()
-        #     for zero in zeros:
-        #         if not self.not_solved(self.sudoku_matrix):
-        #             break
-        #         keep = copy.deepcopy(zero)
-        #         x = keep['x']
-        #         y = keep['y']
-        #         for candidate in keep['candidates']:
-        #             oh_yeah = 0
-        #             self.sudoku_matrix[y][x] = candidate
-        #             if self.successful_scan(self.sudoku_matrix) and not self.guess_failed():
-        #                 self.__sudoku_backup()
-        #                 oh_yeah += 1
-        #                 break
-        #             elif self.guess_failed():
-        #                 self.__sudoku_restore()
-        #         if not oh_yeah:
-        #             continue
-        #         #     oh_yeah = 0
-        #         break
-        #     self.guess()
 
     def not_solved(self, sudoku):
         return len(list(self.__find_sets(sudoku)))
