@@ -3,7 +3,10 @@ from matrix import *
 from checker import *
 from solver import *
 
-FILE = '/Users/Oilcake/PycharmProjects/examples/sudoku.csv'
+# FILE = '/Users/Oilcake/PycharmProjects/examples/sudoku.csv'
+
+FILE = '/Users/Oilcake/PycharmProjects/Sudoku_solver/sudoku_examples.csv'
+
 
 solved_count = 0
 unsolved_count = 0
