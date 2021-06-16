@@ -1,5 +1,7 @@
 # Sudoku solver
 
+Solves 1000000 sudokus
+
 __Usage__
 
 ```
