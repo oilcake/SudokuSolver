@@ -1,5 +1,3 @@
-from matrix import *
-from sudoku import *
 import csv
 
 
@@ -21,7 +19,7 @@ class SudokuReader:
         # task_matrix = Matrix(task)
         # solution_matrix = Matrix(solution)
         #
-        # sudoku = Sudoku(task_matix, solution_matrix)
+        # sudoku = Sudoku(task_matrix, solution_matrix)
 
     @staticmethod
     def __get_from_dictionary(line):

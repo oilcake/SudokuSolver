@@ -45,4 +45,3 @@ class Excluder:
 
     def discard_values_from_set(self, x, y, value):
         self.sudoku_matrix[y][x].discard(value)
-

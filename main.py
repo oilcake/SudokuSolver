@@ -1,6 +1,7 @@
 from sudoku_reader import *
 from matrix import *
 from checker import *
+from solver import *
 
 FILE = '/Users/Oilcake/PycharmProjects/examples/sudoku.csv'
 
