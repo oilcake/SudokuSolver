@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(description='give me some sudokus')
 
 # FILE = '/Users/Oilcake/PycharmProjects/examples/sudoku.csv'
 
-FILE = '/Users/Oilcake/PycharmProjects/Sudoku_solver/sudoku_examples.csv'
+FILE = 'sudoku_examples.csv'
 
 
 solved_count = 0
