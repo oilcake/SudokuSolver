@@ -3,12 +3,11 @@ import csv
 
 class SudokuReader:
 
-    # def __init__(self):
-    #     self.file = file
-    #     self.lines = csv.DictReader(self.file)
+    def __init__(self, file):
+        self.f = open(file)
 
-    def read(self, file):
-        lines = csv.DictReader(file)
+    def read(self):
+        lines = csv.DictReader(self.f)
         # sudokus = map(self.__get_from_dictionary, lines)
         return lines
 
@@ -20,6 +19,10 @@ class SudokuReader:
         # solution_matrix = Matrix(solution)
         #
         # sudoku = Sudoku(task_matrix, solution_matrix)
+
+    def close(self):
+        self.f.close()
+
 
     @staticmethod
     def __get_from_dictionary(line):
