@@ -7,7 +7,7 @@ class Guesser:
         self.fake_matrix = sudoku
         self.zeros = zeros
 
-    def guess(self):
+    def guess(self): # returns an array of matrixes with possible values
         for zero in self.zeros:
             keep = copy.deepcopy(zero)
             x = keep['x']
