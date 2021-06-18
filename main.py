@@ -6,49 +6,34 @@ import argparse
 
 parser = argparse.ArgumentParser(description='give me some sudokus')
 
-# FILE = '/Users/Oilcake/PycharmProjects/examples/sudoku.csv'
-
 FILE = 'sudoku_examples.csv'
-
 
 solved_count = 0
 unsolved_count = 0
 
-# with open(FILE) as csvfile:
 reader = SudokuReader(FILE)
-sudokus = reader.read()
-count = 0
+sudokus = reader.read() # returns a dict with 'quizzes' and 'solutions'
 
 for sudoku in sudokus:
-    count += 1
-    # if count < 39030:
-    #     continue
-
-    # returns a dict with 'quizzes' and 'solutions'
     task = Matrix(sudoku['quizzes'])
     solution = Matrix(sudoku['solutions'])
-    # task.show()
-    # print()
-    # solution.show()
-    # print()
+    print('Task')
+    task.show()
+    print('Solution')
+    solution.show()
     solver = Solver(task.matrix)
-    answer = solver.solve()
-    task.matrix = answer
+    task.matrix = solver.solve()
 
-    # task.show()
-    # print()
-    # solution.show()
-    # print()
+    print('Task solved')
+    task.show()
     checker = Checker(task.matrix, solution.matrix)
-
-    # print(checker.solved())
 
     if checker.solved():
         solved_count += 1
     else:
         unsolved_count += 1
-        # break
 
-    print(solved_count, unsolved_count)
-    # input('Next?')
+    print('correct', solved_count)
+    print('incorrect', unsolved_count)
+    input('Next?')
 reader.close()
