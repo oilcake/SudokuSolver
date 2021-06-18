@@ -18,4 +18,4 @@ __Matrix__ - builds a matrix with task
 
 __Solver__ - solves task
 
-__Checker__ - checks compares computed solution and given one
+__Checker__ - compares computed solution and given one
