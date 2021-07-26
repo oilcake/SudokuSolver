@@ -11,7 +11,7 @@ usage:
 main.py [-h] sudokus
 
 positional arguments:
-  sudokus     .csv with unsolved sudokus
+  sudokus - .csv with unsolved sudokus
 
 optional arguments:
   -h, --help  show this help message and exit

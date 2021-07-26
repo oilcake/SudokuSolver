@@ -1,4 +1,4 @@
-from sudoku_reader import *
+from reader import *
 from matrix import *
 from checker import *
 from solver import *
