@@ -19,7 +19,7 @@ optional arguments:
 
 [download 1000000 sudokus](https://drive.google.com/file/d/1tH7WqOxoG-9k5lRZlEU4HM_mHh10_HlD/view?usp=sharing)
 
-__Sudoku_reader__ - reads csv file with sudoku examples
+__Reader__ - reads csv file with sudoku examples
 
 __Matrix__ - builds a matrix from task
 

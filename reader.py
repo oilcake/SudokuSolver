@@ -1,7 +1,7 @@
 import csv
 
 
-class SudokuReader:
+class Reader:
 
     def __init__(self, file):
         self.f = open(file)

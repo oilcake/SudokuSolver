@@ -27,7 +27,7 @@ one = str2bool(answer_2)
 solved_count = 0
 unsolved_count = 0
 
-reader = SudokuReader(args.sudokus)
+reader = Reader(args.sudokus)
 sudokus = reader.read() # returns a dict with 'quizzes' and 'solutions'
 
 for sudoku in sudokus:
