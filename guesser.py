@@ -13,7 +13,6 @@ class Guesser:
             x = keep['x']
             y = keep['y']
             for candidate in keep['candidates']:
-                # print(candidate)
                 self.fake_matrix[y][x] = candidate
                 fake = {'matrix': copy.deepcopy(self.fake_matrix),
                         'x': x, 'y': y, 'candidate': candidate}
